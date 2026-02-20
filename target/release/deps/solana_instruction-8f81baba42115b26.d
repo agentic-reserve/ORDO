@@ -1,0 +1,10 @@
+C:\Users\raden\Music\ordo\ordo\target\release\deps\solana_instruction-8f81baba42115b26.d: C:\Users\raden\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\solana-instruction-2.3.3\src\lib.rs C:\Users\raden\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\solana-instruction-2.3.3\src\account_meta.rs C:\Users\raden\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\solana-instruction-2.3.3\src\error.rs C:\Users\raden\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\solana-instruction-2.3.3\src\syscalls.rs
+
+C:\Users\raden\Music\ordo\ordo\target\release\deps\libsolana_instruction-8f81baba42115b26.rlib: C:\Users\raden\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\solana-instruction-2.3.3\src\lib.rs C:\Users\raden\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\solana-instruction-2.3.3\src\account_meta.rs C:\Users\raden\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\solana-instruction-2.3.3\src\error.rs C:\Users\raden\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\solana-instruction-2.3.3\src\syscalls.rs
+
+C:\Users\raden\Music\ordo\ordo\target\release\deps\libsolana_instruction-8f81baba42115b26.rmeta: C:\Users\raden\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\solana-instruction-2.3.3\src\lib.rs C:\Users\raden\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\solana-instruction-2.3.3\src\account_meta.rs C:\Users\raden\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\solana-instruction-2.3.3\src\error.rs C:\Users\raden\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\solana-instruction-2.3.3\src\syscalls.rs
+
+C:\Users\raden\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\solana-instruction-2.3.3\src\lib.rs:
+C:\Users\raden\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\solana-instruction-2.3.3\src\account_meta.rs:
+C:\Users\raden\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\solana-instruction-2.3.3\src\error.rs:
+C:\Users\raden\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\solana-instruction-2.3.3\src\syscalls.rs:

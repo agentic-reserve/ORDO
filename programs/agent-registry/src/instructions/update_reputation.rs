@@ -45,9 +45,13 @@ pub fn handler(
     let agent_account = &mut ctx.accounts.agent_account;
     let clock = Clock::get()?;
 
+    // Get keys before mutable borrows
+    let agent_key = agent_account.key();
+    let rater_key = ctx.accounts.rater.key();
+
     // Store reputation record
-    reputation_record.agent = ctx.accounts.agent_account.key();
-    reputation_record.rater = ctx.accounts.rater.key();
+    reputation_record.agent = agent_key;
+    reputation_record.rater = rater_key;
     reputation_record.score = score;
     reputation_record.comment = comment.clone();
     reputation_record.timestamp = clock.unix_timestamp;
@@ -61,8 +65,8 @@ pub fn handler(
 
     // Emit event
     emit!(ReputationUpdatedEvent {
-        agent: ctx.accounts.agent_account.key(),
-        rater: ctx.accounts.rater.key(),
+        agent: agent_key,
+        rater: rater_key,
         score,
         new_total_score: agent_account.reputation_score,
         timestamp: clock.unix_timestamp,
