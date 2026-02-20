@@ -169,8 +169,7 @@ When you report a vulnerability:
 
 1. We will acknowledge receipt within 48 hours
 2. We will provide regular updates on our progress
-3. We will credit you in our security acknowledgements (if desired)
-4. We will not take legal action against good-faith security research
+3. We will not take legal action against good-faith security research
 
 ### Your Commitment
 
