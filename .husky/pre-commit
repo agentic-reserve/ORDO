@@ -1,0 +1,22 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "🔍 Running pre-commit checks..."
+
+# Run unit tests
+echo "\n📝 Running unit tests..."
+npm test -- --run --reporter=verbose 2>&1 | head -n 50
+
+# Run linting
+echo "\n🎨 Running ESLint..."
+npm run lint
+
+# Run type checking
+echo "\n🔍 Running TypeScript type check..."
+npm run type-check
+
+# Run fast property tests (10 iterations)
+echo "\n🧪 Running fast property tests..."
+npm test -- --run --grep="property" 2>&1 | head -n 50
+
+echo "\n✅ Pre-commit checks complete!"

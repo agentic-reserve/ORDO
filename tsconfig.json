@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "lib": ["ES2022", "DOM"],
+    "outDir": "dist",
+    "rootDir": "src",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "baseUrl": ".",
+    "paths": {
+      "@ordo/*": ["src/*"],
+      "@ordo/identity/*": ["src/identity/*"],
+      "@ordo/lifecycle/*": ["src/lifecycle/*"],
+      "@ordo/economic/*": ["src/economic/*"],
+      "@ordo/evolution/*": ["src/evolution/*"],
+      "@ordo/intelligence/*": ["src/intelligence/*"],
+      "@ordo/consciousness/*": ["src/consciousness/*"],
+      "@ordo/civilization/*": ["src/civilization/*"],
+      "@ordo/safety/*": ["src/safety/*"],
+      "@ordo/infrastructure/*": ["src/infrastructure/*"]
+    }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist", "**/*.test.ts"]
+}

@@ -1,0 +1,110 @@
+version: '3.8'
+
+services:
+  # Ordo Platform (Development)
+  ordo-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: ordo-dev
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+      - "9229:9229"  # Node.js debugger
+    environment:
+      - NODE_ENV=development
+      - LOG_LEVEL=debug
+      - DEBUG=true
+    env_file:
+      - .env
+    volumes:
+      - ./src:/app/src:ro
+      - ./dist:/app/dist
+      - ./node_modules:/app/node_modules
+      - ./logs:/app/logs
+    networks:
+      - ordo-dev-network
+    depends_on:
+      - postgres-dev
+      - redis-dev
+      - solana-validator-dev
+    command: npm run dev
+
+  # PostgreSQL (Development)
+  postgres-dev:
+    image: postgres:15-alpine
+    container_name: ordo-postgres-dev
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=ordo_dev
+      - POSTGRES_PASSWORD=ordo_dev_password
+      - POSTGRES_DB=ordo_dev
+    volumes:
+      - postgres-dev-data:/var/lib/postgresql/data
+      - ./supabase/migrations:/docker-entrypoint-initdb.d
+    networks:
+      - ordo-dev-network
+
+  # Redis (Development)
+  redis-dev:
+    image: redis:7-alpine
+    container_name: ordo-redis-dev
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    networks:
+      - ordo-dev-network
+
+  # Solana Test Validator (Development)
+  solana-validator-dev:
+    image: solanalabs/solana:v1.18.0
+    container_name: ordo-solana-validator-dev
+    restart: unless-stopped
+    ports:
+      - "8899:8899"
+      - "8900:8900"
+      - "9900:9900"
+    command: >
+      solana-test-validator
+      --rpc-port 8899
+      --faucet-port 8900
+      --websocket-port 9900
+      --reset
+      --quiet
+      --log
+    networks:
+      - ordo-dev-network
+    volumes:
+      - solana-dev-data:/root/.config/solana
+
+  # Supabase Local (Development)
+  supabase-dev:
+    image: supabase/postgres:15.1.0.117
+    container_name: ordo-supabase-dev
+    restart: unless-stopped
+    ports:
+      - "54322:5432"
+    environment:
+      - POSTGRES_PASSWORD=supabase_dev_password
+    volumes:
+      - supabase-dev-data:/var/lib/postgresql/data
+    networks:
+      - ordo-dev-network
+    profiles:
+      - supabase-local
+
+volumes:
+  postgres-dev-data:
+    driver: local
+  redis-dev-data:
+    driver: local
+  solana-dev-data:
+    driver: local
+  supabase-dev-data:
+    driver: local
+
+networks:
+  ordo-dev-network:
+    driver: bridge

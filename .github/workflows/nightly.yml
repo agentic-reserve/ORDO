@@ -1,0 +1,161 @@
+name: Nightly Testing
+
+on:
+  schedule:
+    # Run every night at 2 AM UTC
+    - cron: '0 2 * * *'
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  extended-tests:
+    name: Extended Property Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+        working-directory: ./ordo
+      
+      - name: Run extended property tests (1000 iterations)
+        run: npm test -- --run --grep="property"
+        working-directory: ./ordo
+        env:
+          NODE_ENV: test
+          PROPERTY_TEST_ITERATIONS: 1000
+      
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: extended-test-results
+          path: ./ordo/test-results/
+
+  performance-benchmarks:
+    name: Performance Benchmarks
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+        working-directory: ./ordo
+      
+      - name: Run performance benchmarks
+        run: npm test -- --run test/performance/
+        working-directory: ./ordo
+        env:
+          NODE_ENV: test
+          SOLANA_RPC_URL: ${{ secrets.SOLANA_RPC_URL }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+      
+      - name: Upload benchmark results
+        uses: actions/upload-artifact@v4
+        with:
+          name: performance-benchmarks
+          path: ./ordo/benchmarks/
+
+  evolution-simulation:
+    name: Evolution Simulation
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+        working-directory: ./ordo
+      
+      - name: Run evolution simulation
+        run: npm test -- --run src/evolution/evolution-simulation-integration.test.ts
+        working-directory: ./ordo
+        env:
+          NODE_ENV: test
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+      
+      - name: Upload simulation results
+        uses: actions/upload-artifact@v4
+        with:
+          name: evolution-simulation
+          path: ./ordo/simulation-results/
+
+  coverage-report:
+    name: Coverage Report
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+        working-directory: ./ordo
+      
+      - name: Generate coverage report
+        run: npm run test:coverage
+        working-directory: ./ordo
+      
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: ./ordo/coverage/
+
+  notify:
+    name: Send Summary
+    runs-on: ubuntu-latest
+    needs: [extended-tests, performance-benchmarks, evolution-simulation, coverage-report]
+    if: always()
+    
+    steps:
+      - name: Send Slack notification
+        uses: slackapi/slack-github-action@v1
+        with:
+          payload: |
+            {
+              "text": "Nightly Test Summary",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "*Nightly Test Results*\n\nExtended Tests: ${{ needs.extended-tests.result }}\nPerformance: ${{ needs.performance-benchmarks.result }}\nEvolution Sim: ${{ needs.evolution-simulation.result }}\nCoverage: ${{ needs.coverage-report.result }}"
+                  }
+                }
+              ]
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}

@@ -1,0 +1,43 @@
+{
+  "name": "@ordo/mobile",
+  "version": "0.1.0",
+  "description": "Ordo Mobile - React Native app for managing AI agents on Solana Mobile",
+  "main": "index.js",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web",
+    "build:android": "eas build --platform android",
+    "build:apk": "eas build --platform android --profile preview",
+    "submit:dappstore": "node scripts/submit-to-dappstore.js",
+    "test": "jest",
+    "lint": "eslint .",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@react-native-async-storage/async-storage": "^1.21.0",
+    "@react-navigation/native": "^6.1.9",
+    "@react-navigation/stack": "^6.3.20",
+    "@solana-mobile/mobile-wallet-adapter-protocol": "^2.0.0",
+    "@solana-mobile/mobile-wallet-adapter-protocol-web3js": "^2.0.0",
+    "@solana/web3.js": "^1.95.8",
+    "expo": "~50.0.0",
+    "expo-status-bar": "~1.11.1",
+    "react": "18.2.0",
+    "react-native": "0.73.0",
+    "react-native-gesture-handler": "~2.14.0",
+    "react-native-reanimated": "~3.6.0",
+    "react-native-safe-area-context": "4.8.2",
+    "react-native-screens": "~3.29.0",
+    "react-native-svg": "14.1.0",
+    "zustand": "^4.4.7"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.23.0",
+    "@types/react": "~18.2.45",
+    "@types/react-native": "~0.73.0",
+    "typescript": "^5.3.0"
+  },
+  "private": true
+}

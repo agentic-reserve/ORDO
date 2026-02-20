@@ -1,0 +1,118 @@
+version: '3.8'
+
+services:
+  # Ordo Platform
+  ordo:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ordo-platform
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - LOG_LEVEL=info
+    env_file:
+      - .env
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+    networks:
+      - ordo-network
+    depends_on:
+      - postgres
+      - redis
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3000/health', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # PostgreSQL (for local Supabase alternative)
+  postgres:
+    image: postgres:15-alpine
+    container_name: ordo-postgres
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=ordo
+      - POSTGRES_PASSWORD=ordo_password
+      - POSTGRES_DB=ordo
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./supabase/migrations:/docker-entrypoint-initdb.d
+    networks:
+      - ordo-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ordo"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Redis (for caching and session management)
+  redis:
+    image: redis:7-alpine
+    container_name: ordo-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes
+    volumes:
+      - redis-data:/data
+    networks:
+      - ordo-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Solana Validator (optional, for local testing)
+  solana-validator:
+    image: solanalabs/solana:v1.18.0
+    container_name: ordo-solana-validator
+    restart: unless-stopped
+    ports:
+      - "8899:8899"
+      - "8900:8900"
+    command: >
+      solana-test-validator
+      --rpc-port 8899
+      --faucet-port 8900
+      --reset
+      --quiet
+    networks:
+      - ordo-network
+    profiles:
+      - local-validator
+
+  # Nginx (reverse proxy for production)
+  nginx:
+    image: nginx:alpine
+    container_name: ordo-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro
+    networks:
+      - ordo-network
+    depends_on:
+      - ordo
+    profiles:
+      - production
+
+volumes:
+  postgres-data:
+    driver: local
+  redis-data:
+    driver: local
+
+networks:
+  ordo-network:
+    driver: bridge
