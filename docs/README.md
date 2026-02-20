@@ -35,22 +35,13 @@ Dokumentasi upgrade dan migrasi versi.
 Dokumentasi API dan integrasi eksternal.
 
 - [api-documentation.md](./api-documentation.md) - API reference lengkap
-- [JUPITER-INTEGRATION.md](./JUPITER-INTEGRATION.md) - Integrasi Jupiter DEX
-- [X402-INTEGRATION-SUMMARY.md](./X402-INTEGRATION-SUMMARY.md) - Integrasi X402 protocol
+- [JUPITER-INTEGRATION.md](./JUPITER-INTEGRATION.md) - Panduan integrasi Jupiter DEX
 
 ### Program & Smart Contracts
 Dokumentasi Solana programs dan smart contracts.
 
 - [PROGRAM-METADATA-SETUP.md](./PROGRAM-METADATA-SETUP.md) - Setup program metadata
 - [AGENT_REGISTRY_SETUP.md](./AGENT_REGISTRY_SETUP.md) - Setup agent registry program
-
-### Mobile & Web Apps
-Dokumentasi aplikasi mobile dan web.
-
-- [MOBILE-APP-SUMMARY.md](./MOBILE-APP-SUMMARY.md) - Ringkasan mobile app
-- [MWA-INTEGRATION-SUMMARY.md](./MWA-INTEGRATION-SUMMARY.md) - Mobile Wallet Adapter integration
-- [WEB-APP-SUMMARY.md](./WEB-APP-SUMMARY.md) - Ringkasan web app
-- [UNIFIED-WALLET-ADAPTER-SUMMARY.md](./UNIFIED-WALLET-ADAPTER-SUMMARY.md) - Unified Wallet Adapter
 
 ### Deployment
 Panduan deployment ke berbagai platform.
@@ -59,11 +50,6 @@ Panduan deployment ke berbagai platform.
 - [github-deployment.md](./github-deployment.md) - Deployment via GitHub Actions
 - [railway-deployment.md](./railway-deployment.md) - Deployment ke Railway
 - [local-development.md](./local-development.md) - Setup development lokal
-
-### Backend & Infrastructure
-Dokumentasi backend dan infrastruktur.
-
-- [BACKEND-INTEGRATION-COMPLETE.md](./BACKEND-INTEGRATION-COMPLETE.md) - Status integrasi backend
 
 ### Safety & Alignment
 Dokumentasi safety dan AI alignment.

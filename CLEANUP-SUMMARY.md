@@ -48,6 +48,58 @@ Cleaned up obsolete scripts and reorganized documentation after successful upgra
 - **Why Removed**: No content, not referenced anywhere
 - **Replacement**: `docs/README.md` provides structure
 
+### Integration Summary Files (6 files) ❌
+
+These files were removed as they only contained implementation status updates, not actual guides:
+
+#### 8. `docs/BACKEND-INTEGRATION-COMPLETE.md` ❌
+- **Purpose**: Backend integration completion status
+- **Why Removed**: Just a summary, not a guide
+- **Replacement**: Code in `src/api/` is self-documenting
+
+#### 9. `docs/MOBILE-APP-SUMMARY.md` ❌
+- **Purpose**: Mobile app implementation summary
+- **Why Removed**: Just a summary, not a guide
+- **Replacement**: Code in `mobile/` with inline documentation
+
+#### 10. `docs/WEB-APP-SUMMARY.md` ❌
+- **Purpose**: Web app implementation summary
+- **Why Removed**: Just a summary, not a guide
+- **Replacement**: Code in `web/` with inline documentation
+
+#### 11. `docs/MWA-INTEGRATION-SUMMARY.md` ❌
+- **Purpose**: Mobile Wallet Adapter integration summary
+- **Why Removed**: Just a summary, not a guide
+- **Replacement**: Code in `src/skills/mobile-wallet-adapter/`
+
+#### 12. `docs/UNIFIED-WALLET-ADAPTER-SUMMARY.md` ❌
+- **Purpose**: Unified wallet adapter integration summary
+- **Why Removed**: Just a summary, not a guide
+- **Replacement**: Code in `src/skills/unified-wallet/`
+
+#### 13. `docs/X402-INTEGRATION-SUMMARY.md` ❌
+- **Purpose**: x402 protocol integration summary
+- **Why Removed**: Just a summary, not a guide
+- **Replacement**: Code in `src/skills/x402/`
+
+## Documentation Kept
+
+### Integration Guides (Still Relevant)
+
+#### ✅ `docs/JUPITER-INTEGRATION.md`
+- **Type**: Complete integration guide
+- **Why Kept**: Comprehensive guide with examples and API reference
+- **Use**: Reference for Jupiter DEX integration
+
+#### ✅ `docs/api-documentation.md`
+- **Type**: API reference documentation
+- **Why Kept**: Complete API documentation
+- **Use**: Reference for REST API usage
+
+#### ✅ All other docs in `docs/`
+- Setup guides, security docs, deployment guides
+- All provide actionable information, not just status updates
+
 ## Documentation Updates
 
 ### Files Updated
@@ -221,10 +273,10 @@ ls docs/upgrades/README.md
 ## Statistics
 
 ### Files Removed
-- **Total**: 7 files
-- **Scripts**: 6 files
-- **Documentation**: 1 file (empty)
-- **Total Size**: ~15 KB
+- **Total**: 13 files
+- **Scripts**: 6 files (fix scripts)
+- **Documentation**: 7 files (1 empty + 6 summaries)
+- **Total Size**: ~50 KB
 
 ### Documentation Updated
 - **Files Updated**: 2 files

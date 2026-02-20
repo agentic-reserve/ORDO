@@ -357,10 +357,6 @@ npm test -- --coverage
 
 #### Integration Guides
 - [Jupiter Integration](./docs/JUPITER-INTEGRATION.md) - DEX integration
-- [Web App Summary](./docs/WEB-APP-SUMMARY.md) - Frontend integration
-- [Mobile App Summary](./docs/MOBILE-APP-SUMMARY.md) - React Native app
-- [X402 Integration](./docs/X402-INTEGRATION-SUMMARY.md) - Payment protocol
-- [Backend Integration](./docs/BACKEND-INTEGRATION-COMPLETE.md) - API server
 
 ### Deployment
 - [Local Development](./docs/local-development.md) - Development setup
