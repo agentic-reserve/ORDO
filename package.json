@@ -43,7 +43,13 @@
     "lint": "eslint src --ext .ts",
     "format": "prettier --write \"src/**/*.ts\"",
     "clean": "rm -rf dist",
-    "setup:local": "npm install && npm run build && cp .env.example .env"
+    "setup:local": "npm install && npm run build && cp .env.example .env",
+    "metadata:upload": "tsx scripts/upload-metadata.ts",
+    "metadata:upload:devnet": "tsx scripts/upload-metadata.ts --network devnet --type all",
+    "metadata:upload:mainnet": "tsx scripts/upload-metadata.ts --network mainnet --type all",
+    "metadata:fetch": "npx @solana-program/program-metadata@latest fetch idl AgentReg11111111111111111111111111111111111",
+    "metadata:fetch:devnet": "npx @solana-program/program-metadata@latest fetch idl AgentReg11111111111111111111111111111111111 --rpc https://api.devnet.solana.com",
+    "fix:solana-version": "powershell -ExecutionPolicy Bypass -File ./fix-solana-version.ps1"
   },
   "dependencies": {
     "@coral-xyz/anchor": "^0.30.1",

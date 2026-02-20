@@ -1,6 +1,6 @@
 [workspace]
 members = [
-    "programs/*"
+    "programs/agent-registry"
 ]
 resolver = "2"
 

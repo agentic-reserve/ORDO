@@ -1,0 +1,22 @@
+{
+    "name": "Agent Registry",
+    "logo": "https://raw.githubusercontent.com/ordo-platform/ordo/main/docs/logo.png",
+    "description": "Solana program for agent registration, discovery, and reputation management in the Ordo digital civilization platform",
+    "notification": "",
+    "sdk": "https://github.com/ordo-platform/ordo",
+    "project_url": "https://github.com/ordo-platform/ordo",
+    "contacts": [
+        "email:security@ordo.com",
+        "discord:Ordo#1234"
+    ],
+    "policy": "https://github.com/ordo-platform/ordo/blob/main/SECURITY.md",
+    "preferred_languages": ["en"],
+    "encryption": "",
+    "source_code": "https://github.com/ordo-platform/ordo",
+    "source_release": "v0.1.0",
+    "source_revision": "",
+    "auditors": [],
+    "acknowledgements": "",
+    "expiry": "",
+    "version": "0.1.0"
+}
