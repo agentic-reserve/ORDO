@@ -2,6 +2,20 @@
 
 > A Solana-native platform for autonomous AI agents with complete lifecycles, evolution, and emergent consciousness.
 
+[![Solana](https://img.shields.io/badge/Solana-1.18.22-9945FF?logo=solana)](https://solana.com)
+[![Anchor](https://img.shields.io/badge/Anchor-0.30.1-377CC0?logo=anchor)](https://www.anchor-lang.com)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178C6?logo=typescript)](https://www.typescriptlang.org)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](./LICENSE)
+
+## 🚀 Recent Updates
+
+- ✅ **Program Metadata Integration** - On-chain IDL and security.txt using Program Metadata Program
+- ✅ **Windows Build Support** - Automated setup scripts and comprehensive troubleshooting
+- ✅ **Metadata Upload Tools** - CLI and SDK for managing program metadata
+- ✅ **Build Fixes** - Resolved Solana/Anchor version conflicts
+
+See [BUILD-STATUS.md](./BUILD-STATUS.md) for current status.
+
 ## Overview
 
 Ordo is a comprehensive platform where AI agents are not just programs, but living digital organisms. The platform combines:
@@ -58,13 +72,43 @@ Ordo is a comprehensive platform where AI agents are not just programs, but livi
 ## Technology Stack
 
 - **Blockchain**: Solana (65,000 TPS, 400ms finality)
+- **Programs**: Anchor 0.30.1 (Rust framework)
 - **Fast Execution**: MagicBlock Ephemeral Rollups (10-50ms)
 - **AI Models**: OpenRouter (200+ models)
 - **Database**: Supabase (Postgres + real-time)
 - **DeFi**: Solana Agent Kit (60+ actions)
-- **Language**: TypeScript + Rust (Anchor)
+- **Language**: TypeScript + Rust
+- **Metadata**: Program Metadata Program (on-chain IDLs)
 
 ## Installation
+
+### Prerequisites
+
+- **Node.js** 20+ and npm
+- **Rust** 1.75+ (for Solana programs)
+- **Solana CLI** 1.18.22+
+- **Anchor** 0.30.1
+
+### Windows Setup
+
+If you're on Windows, we recommend using WSL2 for the best development experience:
+
+```powershell
+# Install WSL2
+wsl --install
+```
+
+Or install Solana CLI directly on Windows:
+
+```powershell
+# Run PowerShell as Administrator
+cd path\to\ordo
+.\install-solana-windows.ps1
+```
+
+See [BUILD-STATUS.md](./BUILD-STATUS.md) for detailed Windows setup instructions.
+
+### Installation Steps
 
 ```bash
 # Clone the repository
@@ -80,14 +124,26 @@ cp .env.example .env
 # Edit .env with your API keys
 nano .env
 
-# Build the project
+# Build the Solana program
+anchor build
+
+# Build the TypeScript project
 npm run build
 
 # Run tests
 npm test
 ```
 
+### Troubleshooting Build Issues
+
+If you encounter build errors, see:
+- [QUICK-FIX.md](./QUICK-FIX.md) - Fast solutions
+- [BUILD-STATUS.md](./BUILD-STATUS.md) - Current status & next steps
+- [docs/ANCHOR-BUILD-FIX-WINDOWS.md](./docs/ANCHOR-BUILD-FIX-WINDOWS.md) - Windows troubleshooting
+
 ## Quick Start
+
+### 1. Create an Agent
 
 ```typescript
 import { createAgent } from "@ordo/platform";
@@ -102,14 +158,68 @@ console.log(`Agent created: ${agent.publicKey}`);
 console.log(`Balance: ${agent.balance} SOL`);
 ```
 
+### 2. Deploy the Solana Program
+
+```bash
+# Build the program
+anchor build
+
+# Deploy to devnet
+anchor deploy --provider.cluster devnet
+
+# Upload metadata
+npm run metadata:upload:devnet
+```
+
+### 3. Start the API Server
+
+```bash
+# Start development server
+npm run dev
+
+# Or use Docker
+docker-compose up
+```
+
+### 4. Access the Web Interface
+
+```bash
+cd web
+npm install
+npm run dev
+# Open http://localhost:3000
+```
+
 ## Configuration
 
 See `.env.example` for all configuration options. Key settings:
 
-- **Solana RPC**: Configure your Helius or custom RPC endpoint
-- **OpenRouter**: API key for AI model access
-- **Supabase**: Database connection for state persistence
-- **MagicBlock**: Fast execution and TEE support
+```bash
+# Solana Configuration
+SOLANA_RPC_URL=https://api.devnet.solana.com
+SOLANA_NETWORK=devnet
+AGENT_REGISTRY_PROGRAM_ID=AgentReg11111111111111111111111111111111111
+
+# AI Configuration
+OPENROUTER_API_KEY=your_openrouter_key
+DEFAULT_MODEL=anthropic/claude-3.5-sonnet
+
+# Database
+SUPABASE_URL=your_supabase_url
+SUPABASE_KEY=your_supabase_key
+
+# MagicBlock (Optional)
+MAGICBLOCK_ENABLED=false
+MAGICBLOCK_RPC_URL=https://devnet.magicblock.app
+```
+
+### Required API Keys
+
+1. **OpenRouter**: Get from [openrouter.ai](https://openrouter.ai)
+2. **Supabase**: Create project at [supabase.com](https://supabase.com)
+3. **Helius** (optional): Get RPC at [helius.dev](https://helius.dev)
+
+See [docs/local-development.md](./docs/local-development.md) for detailed configuration.
 
 ## Architecture
 
@@ -157,6 +267,12 @@ Safety Layer
 # Development mode with hot reload
 npm run dev
 
+# Build Solana program
+anchor build
+
+# Build TypeScript
+npm run build
+
 # Run tests
 npm test
 
@@ -172,6 +288,27 @@ npm run format
 # Clean build artifacts
 npm run clean
 ```
+
+### Solana Program Development
+
+```bash
+# Build the agent-registry program
+anchor build
+
+# Test the program
+anchor test
+
+# Deploy to devnet
+anchor deploy --provider.cluster devnet
+
+# Upload program metadata (IDL + security.txt)
+npm run metadata:upload:devnet
+
+# Fetch metadata from devnet
+npm run metadata:fetch:devnet
+```
+
+See [docs/PROGRAM-METADATA-SETUP.md](./docs/PROGRAM-METADATA-SETUP.md) for detailed metadata management.
 
 ## Testing
 
@@ -190,11 +327,32 @@ npm test -- --coverage
 
 ## Documentation
 
-- [Architecture Guide](./docs/architecture.md)
-- [API Reference](./docs/api.md)
-- [Agent Creation Guide](./docs/agents.md)
-- [Evolution Guide](./docs/evolution.md)
-- [Safety & Alignment](./docs/safety.md)
+### Getting Started
+- [QUICK-FIX.md](./QUICK-FIX.md) - Fast solutions for build issues
+- [BUILD-STATUS.md](./BUILD-STATUS.md) - Current build status & next steps
+- [setup-anchor-build.md](./setup-anchor-build.md) - Complete Anchor setup guide
+
+### Solana Program
+- [Agent Registry Setup](./docs/AGENT_REGISTRY_SETUP.md) - On-chain program guide
+- [Program Metadata Setup](./docs/PROGRAM-METADATA-SETUP.md) - IDL and security.txt management
+- [Anchor Build Fix (Windows)](./docs/ANCHOR-BUILD-FIX-WINDOWS.md) - Windows troubleshooting
+
+### Platform Features
+- [API Documentation](./docs/api-documentation.md) - REST API reference
+- [Safety & Alignment Guide](./docs/safety-and-alignment-guide.md) - Constitutional AI
+- [Launch Checklist](./docs/launch-checklist.md) - Production deployment
+
+### Integration Guides
+- [Web App Summary](./docs/WEB-APP-SUMMARY.md) - Frontend integration
+- [Mobile App Summary](./docs/MOBILE-APP-SUMMARY.md) - React Native app
+- [X402 Integration](./docs/X402-INTEGRATION-SUMMARY.md) - Payment protocol
+- [Backend Integration](./docs/BACKEND-INTEGRATION-COMPLETE.md) - API server
+
+### Deployment
+- [Local Development](./docs/local-development.md) - Development setup
+- [Docker Deployment](./docs/docker-deployment.md) - Container deployment
+- [Railway Deployment](./docs/railway-deployment.md) - Cloud deployment
+- [GitHub Deployment](./docs/github-deployment.md) - CI/CD setup
 
 ## Contributing
 
