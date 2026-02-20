@@ -6,7 +6,7 @@
 [![Anchor](https://img.shields.io/badge/Anchor-0.32.1-377CC0?logo=anchor)](https://www.anchor-lang.com)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178C6?logo=typescript)](https://www.typescriptlang.org)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](./LICENSE)
-[![Security](https://img.shields.io/badge/Security-Audited-success)](./SECURITY-AUDIT-REPORT.md)
+[![Security](https://img.shields.io/badge/Security-Audited-success)](./docs/security/SECURITY-AUDIT-REPORT.md)
 
 ## 🚀 Recent Updates
 
@@ -16,7 +16,7 @@
 - ✅ **Windows Build Support** - Automated setup scripts and comprehensive troubleshooting
 - ✅ **Security Auditing** - Comprehensive security testing with cargo-audit and vulnerability scanning
 
-See [UPGRADE-SUCCESS.md](./UPGRADE-SUCCESS.md) for upgrade details.
+See [UPGRADE-SUCCESS.md](./docs/upgrades/UPGRADE-SUCCESS.md) for upgrade details.
 
 ## Overview
 
@@ -329,22 +329,34 @@ npm test -- --coverage
 
 ## Documentation
 
-### Getting Started
-- [QUICK-FIX.md](./QUICK-FIX.md) - Fast solutions for build issues
-- [BUILD-STATUS.md](./BUILD-STATUS.md) - Current build status & next steps
-- [setup-anchor-build.md](./setup-anchor-build.md) - Complete Anchor setup guide
+📚 **[Complete Documentation](./docs/README.md)** - Dokumentasi lengkap dengan struktur terorganisir
 
-### Solana Program
-- [Agent Registry Setup](./docs/AGENT_REGISTRY_SETUP.md) - On-chain program guide
-- [Program Metadata Setup](./docs/PROGRAM-METADATA-SETUP.md) - IDL and security.txt management
+### Quick Links
+
+#### Setup & Build
+- [BUILD-STATUS.md](./docs/setup/BUILD-STATUS.md) - Status build terkini
+- [QUICK-FIX.md](./docs/setup/QUICK-FIX.md) - Solusi cepat untuk masalah umum
+- [setup-anchor-build.md](./docs/setup/setup-anchor-build.md) - Panduan setup Anchor
 - [Anchor Build Fix (Windows)](./docs/ANCHOR-BUILD-FIX-WINDOWS.md) - Windows troubleshooting
 
-### Platform Features
+#### Security
+- [UPGRADE-SUCCESS.md](./docs/upgrades/UPGRADE-SUCCESS.md) - ✅ Status keamanan terkini
+- [SECURITY-AUDIT-REPORT.md](./docs/security/SECURITY-AUDIT-REPORT.md) - Laporan audit
+- [OWASP Security Guide](./docs/OWASP-SECURITY-GUIDE.md) - Implementasi OWASP
+- [Security Testing Guide](./docs/SECURITY-TESTING-GUIDE.md) - Panduan testing
+
+#### Solana Program
+- [Agent Registry Setup](./docs/AGENT_REGISTRY_SETUP.md) - On-chain program guide
+- [Program Metadata Setup](./docs/PROGRAM-METADATA-SETUP.md) - IDL dan security.txt
+- [ANCHOR-UPGRADE-SUMMARY.md](./docs/upgrades/ANCHOR-UPGRADE-SUMMARY.md) - Detail upgrade
+
+#### Platform Features
 - [API Documentation](./docs/api-documentation.md) - REST API reference
 - [Safety & Alignment Guide](./docs/safety-and-alignment-guide.md) - Constitutional AI
 - [Launch Checklist](./docs/launch-checklist.md) - Production deployment
 
-### Integration Guides
+#### Integration Guides
+- [Jupiter Integration](./docs/JUPITER-INTEGRATION.md) - DEX integration
 - [Web App Summary](./docs/WEB-APP-SUMMARY.md) - Frontend integration
 - [Mobile App Summary](./docs/MOBILE-APP-SUMMARY.md) - React Native app
 - [X402 Integration](./docs/X402-INTEGRATION-SUMMARY.md) - Payment protocol
