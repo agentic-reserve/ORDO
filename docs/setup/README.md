@@ -36,8 +36,11 @@ Panduan troubleshooting lengkap untuk berbagai masalah Anchor build.
 # Ikuti panduan lengkap
 cat setup-anchor-build.md
 
-# Atau gunakan automated script (Windows)
-./fix-anchor-build.ps1
+# Install dependencies
+npm install
+
+# Build program
+anchor build
 ```
 
 ### 2. Build Issues
@@ -48,8 +51,11 @@ cat BUILD-STATUS.md
 # Coba quick fixes
 cat QUICK-FIX.md
 
-# Jalankan fix script
-npm run fix:anchor
+# Update dependencies
+cd programs/agent-registry
+cargo update
+cd ../..
+anchor build
 ```
 
 ### 3. Windows Specific
@@ -57,8 +63,8 @@ npm run fix:anchor
 # Baca troubleshooting Windows
 cat ../ANCHOR-BUILD-FIX-WINDOWS.md
 
-# Jalankan Windows fix script
-./fix-solana-version.ps1
+# Enable Developer Mode untuk symlink support
+# Settings → Update & Security → For developers → Developer Mode
 ```
 
 ## 🔧 Common Issues

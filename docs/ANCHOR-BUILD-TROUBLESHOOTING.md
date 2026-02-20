@@ -4,23 +4,19 @@ This guide helps resolve common build issues with the agent-registry Anchor prog
 
 ## Quick Fix
 
-If you're seeing version mismatch errors, run the fix script:
+Setelah upgrade ke Anchor 0.32.1, sebagian besar masalah build sudah teratasi. Jika masih ada masalah:
 
-**Windows (PowerShell):**
-```powershell
-cd ordo
-.\fix-anchor-build.ps1
+**Check current versions:**
+```bash
+anchor --version  # Should be 0.32.1
+solana --version  # Should be 2.1.0+
 ```
 
-**Linux/Mac:**
+**Update dependencies:**
 ```bash
-cd ordo
-chmod +x fix-anchor-build.sh
-./fix-anchor-build.sh
-```
-
-Then try building again:
-```bash
+cd programs/agent-registry
+cargo update
+cd ../..
 anchor build
 ```
 
