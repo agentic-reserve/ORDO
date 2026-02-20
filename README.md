@@ -2,19 +2,21 @@
 
 > A Solana-native platform for autonomous AI agents with complete lifecycles, evolution, and emergent consciousness.
 
-[![Solana](https://img.shields.io/badge/Solana-1.18.22-9945FF?logo=solana)](https://solana.com)
-[![Anchor](https://img.shields.io/badge/Anchor-0.30.1-377CC0?logo=anchor)](https://www.anchor-lang.com)
+[![Solana](https://img.shields.io/badge/Solana-2.3.0-9945FF?logo=solana)](https://solana.com)
+[![Anchor](https://img.shields.io/badge/Anchor-0.32.1-377CC0?logo=anchor)](https://www.anchor-lang.com)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178C6?logo=typescript)](https://www.typescriptlang.org)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](./LICENSE)
+[![Security](https://img.shields.io/badge/Security-Audited-success)](./SECURITY-AUDIT-REPORT.md)
 
 ## 🚀 Recent Updates
 
+- ✅ **Security Fix** - Upgraded to Anchor 0.32.1 & Solana 2.3.0, all critical vulnerabilities resolved
+- ✅ **Agave Client Support** - Now using latest Solana Agave client with modular architecture
 - ✅ **Program Metadata Integration** - On-chain IDL and security.txt using Program Metadata Program
 - ✅ **Windows Build Support** - Automated setup scripts and comprehensive troubleshooting
-- ✅ **Metadata Upload Tools** - CLI and SDK for managing program metadata
-- ✅ **Build Fixes** - Resolved Solana/Anchor version conflicts
+- ✅ **Security Auditing** - Comprehensive security testing with cargo-audit and vulnerability scanning
 
-See [BUILD-STATUS.md](./BUILD-STATUS.md) for current status.
+See [UPGRADE-SUCCESS.md](./UPGRADE-SUCCESS.md) for upgrade details.
 
 ## Overview
 
