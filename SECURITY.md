@@ -1,224 +1,250 @@
 # Security Policy
 
-## Reporting Security Vulnerabilities
+## Reporting a Vulnerability
 
-**Please do not report security vulnerabilities through public GitHub issues.**
+We take the security of Ordo seriously. If you discover a security vulnerability, please follow responsible disclosure practices.
 
-Instead, please report them via email to: **security@ordo.com**
+### How to Report
 
-Include the following information:
-- Type of vulnerability
-- Full paths of source file(s) related to the vulnerability
-- Location of the affected source code (tag/branch/commit or direct URL)
-- Step-by-step instructions to reproduce the issue
-- Proof-of-concept or exploit code (if possible)
-- Impact of the vulnerability
+**DO NOT** open a public GitHub issue for security vulnerabilities.
 
-We will respond within 48 hours and work with you to understand and resolve the issue.
+Instead, please report security issues to:
+- **Email**: security@ordo.com
+- **Subject**: [SECURITY] Brief description of the issue
 
-## API Key Security
+### What to Include
 
-### Critical: Never Commit API Keys
+Please provide as much information as possible:
 
-This repository uses `.env.example` as a template. **NEVER commit real API keys to version control.**
-
-### Exposed Keys Found
-
-If you find exposed API keys in this repository:
-1. Report immediately to security@ordo.com
-2. Rotate the exposed keys immediately
-3. Review access logs for unauthorized usage
-
-### Best Practices
-
-1. **Use Environment Variables**
-   ```bash
-   # Copy template
-   cp .env.example .env
-   
-   # Add your real keys to .env (which is in .gitignore)
-   nano .env
-   ```
-
-2. **Generate Secure Keys**
-   ```bash
-   # Encryption key
-   node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
-   
-   # JWT secret
-   node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"
-   ```
-
-3. **Use Secrets Managers in Production**
-   - AWS Secrets Manager
-   - HashiCorp Vault
-   - Azure Key Vault
-   - Google Secret Manager
-
-4. **Rotate Keys Regularly**
-   - API keys: Every 90 days
-   - Encryption keys: Every 180 days
-   - JWT secrets: Every 90 days
-
-5. **Use Different Keys Per Environment**
-   - Development
-   - Staging
-   - Production
-
-## Wallet Security
-
-### Private Key Management
-
-**CRITICAL**: Never expose Solana private keys!
-
-1. **Development**: Use test wallets with minimal funds
-2. **Production**: Use hardware wallets or MPC solutions
-3. **Never**: Commit private keys to version control
-4. **Never**: Share private keys via chat/email
-
-### Recommended Wallet Solutions
-
-- **Development**: Phantom, Solflare (testnet)
-- **Production**: Ledger, Squads (multisig)
-- **Programmatic**: AWS KMS, Google Cloud KMS
-
-## Dependency Security
-
-### Regular Updates
-
-```bash
-# Check for vulnerabilities
-npm audit
-
-# Fix vulnerabilities
-npm audit fix
-
-# Update dependencies
-npm update
-```
-
-### Automated Scanning
-
-We use:
-- Dependabot for dependency updates
-- npm audit for vulnerability scanning
-- Snyk for continuous monitoring (optional)
-
-## Smart Contract Security
-
-### Audit Requirements
-
-Before mainnet deployment:
-1. Internal code review
-2. External security audit
-3. Bug bounty program
-4. Gradual rollout with monitoring
-
-### Testing
-
-```bash
-# Run all tests
-anchor test
-
-# Run with coverage
-anchor test --coverage
-
-# Fuzz testing
-cargo fuzz run <target>
-```
-
-## Access Control
-
-### Repository Access
-
-- Maintainers: Full access
-- Contributors: Fork and PR workflow
-- Bots: Read-only (except CI/CD)
-
-### API Access
-
-- Rate limiting enabled
-- Authentication required for sensitive endpoints
-- IP whitelisting for admin endpoints
-
-## Incident Response
-
-### If You Discover a Vulnerability
-
-1. **Do not** exploit the vulnerability
-2. **Do not** disclose publicly
-3. **Do** report to security@ordo.com
-4. **Do** provide detailed information
-5. **Do** allow time for fix before disclosure
+1. **Description** - Clear explanation of the vulnerability
+2. **Impact** - What an attacker could achieve
+3. **Steps to Reproduce** - Detailed reproduction steps
+4. **Proof of Concept** - Code or commands demonstrating the issue
+5. **Suggested Fix** - If you have ideas on how to fix it
+6. **Your Contact Info** - So we can follow up with questions
 
 ### Response Timeline
 
-- **24 hours**: Initial response
-- **48 hours**: Vulnerability assessment
-- **7 days**: Fix development
-- **14 days**: Fix deployment
-- **30 days**: Public disclosure (coordinated)
+- **Initial Response**: Within 48 hours
+- **Status Update**: Within 7 days
+- **Fix Timeline**: Depends on severity (see below)
 
-## Compliance
+## Severity Levels
 
-### Data Protection
+### Critical (Fix within 24-48 hours)
 
-- GDPR compliant (EU users)
-- CCPA compliant (California users)
-- SOC 2 Type II (in progress)
+- Remote code execution
+- Private key exposure
+- Unauthorized fund transfers
+- Complete system compromise
 
-### Encryption
+### High (Fix within 7 days)
 
-- Data at rest: AES-256
-- Data in transit: TLS 1.3
-- Wallet keys: Hardware security modules
+- Authentication bypass
+- Privilege escalation
+- SQL injection
+- Significant data exposure
 
-## Security Checklist
+### Medium (Fix within 30 days)
 
-### Before Deployment
+- Cross-site scripting (XSS)
+- Information disclosure
+- Denial of service
+- Logic errors affecting security
 
-- [ ] All API keys rotated
-- [ ] Environment variables configured
-- [ ] Secrets manager configured
-- [ ] Rate limiting enabled
-- [ ] Authentication tested
-- [ ] Authorization tested
-- [ ] Input validation implemented
-- [ ] SQL injection prevention
-- [ ] XSS prevention
-- [ ] CSRF protection
-- [ ] Security headers configured
-- [ ] HTTPS enforced
-- [ ] Logging configured
-- [ ] Monitoring configured
-- [ ] Backup configured
-- [ ] Disaster recovery plan
-- [ ] Incident response plan
+### Low (Fix within 90 days)
 
-### Regular Maintenance
+- Minor information leaks
+- Best practice violations
+- Non-exploitable bugs
 
-- [ ] Weekly: Review access logs
-- [ ] Monthly: Rotate API keys
-- [ ] Quarterly: Security audit
-- [ ] Annually: Penetration testing
+## Bug Bounty Program
 
-## Resources
+### Scope
 
-- [OWASP Top 10](https://owasp.org/www-project-top-ten/)
-- [Solana Security Best Practices](https://docs.solana.com/developing/programming-model/security)
-- [Anchor Security](https://www.anchor-lang.com/docs/security)
-- [Node.js Security Best Practices](https://nodejs.org/en/docs/guides/security/)
+The following components are in scope:
+
+**Smart Contracts**
+- Agent Registry Program (`programs/agent-registry/`)
+- All on-chain instructions and state management
+
+**Backend Services**
+- API Server (`src/api/`)
+- Database operations (`src/database/`)
+- Authentication/authorization
+
+**DeFi Integration**
+- Token swap logic (`src/defi/`)
+- Wallet management (`src/identity/`)
+- Transaction signing
+
+**Web & Mobile**
+- Web application (`web/`)
+- Mobile application (`mobile/`)
+
+### Out of Scope
+
+- Third-party dependencies (report to the maintainer)
+- Social engineering attacks
+- Physical attacks
+- Denial of service attacks
+- Issues in test/development code
+
+### Rewards
+
+We offer bug bounties at our discretion based on:
+- **Severity** of the vulnerability
+- **Quality** of the report
+- **Impact** on users and the platform
+
+**Reward Range**: Up to 10% of value at risk, capped at $10,000
+
+**Conditions**:
+- Details must not be shared with third parties before a fix is deployed
+- Reporter must not exploit the vulnerability
+- Reporter must not access user data beyond what's necessary to demonstrate the issue
+
+### Ineligible for Bounty
+
+- Issues already known to us
+- Issues found in code not yet deployed to production
+- Theoretical vulnerabilities without proof of concept
+- Vulnerabilities requiring unlikely user interaction
+- Issues found through automated scanning without validation
+
+## Security Best Practices
+
+### For Contributors
+
+When contributing code:
+
+1. **Never commit secrets** - No API keys, private keys, or passwords
+2. **Validate all inputs** - Assume all user input is malicious
+3. **Use parameterized queries** - Prevent SQL injection
+4. **Check permissions** - Verify authorization for all operations
+5. **Handle errors securely** - Don't leak sensitive information
+6. **Keep dependencies updated** - Run `npm audit` regularly
+
+### For Users
+
+To stay secure:
+
+1. **Keep your private keys safe** - Never share them
+2. **Verify transactions** - Check details before signing
+3. **Use hardware wallets** - For large amounts
+4. **Enable 2FA** - Where available
+5. **Keep software updated** - Use the latest version
+
+## Security Features
+
+### Smart Contract Security
+
+- **Anchor Framework** - Type-safe Rust framework
+- **Account Validation** - Strict checks on all accounts
+- **Signer Verification** - Required for sensitive operations
+- **Integer Overflow Protection** - Checked arithmetic
+- **Access Control** - Role-based permissions
+
+### Backend Security
+
+- **Authentication** - JWT-based with secure sessions
+- **Authorization** - Role-based access control (RBAC)
+- **Rate Limiting** - Prevent abuse and DoS
+- **Input Validation** - All inputs sanitized
+- **Encryption** - Sensitive data encrypted at rest and in transit
+
+### Infrastructure Security
+
+- **HTTPS Only** - All traffic encrypted
+- **Security Headers** - CSP, HSTS, X-Frame-Options
+- **Regular Audits** - Automated and manual security reviews
+- **Monitoring** - Real-time security event detection
+- **Backups** - Regular encrypted backups
+
+## Disclosure Policy
+
+### Our Commitment
+
+When you report a vulnerability:
+
+1. We will acknowledge receipt within 48 hours
+2. We will provide regular updates on our progress
+3. We will credit you in our security acknowledgements (if desired)
+4. We will not take legal action against good-faith security research
+
+### Your Commitment
+
+When reporting a vulnerability:
+
+1. Give us reasonable time to fix the issue before public disclosure
+2. Do not access or modify user data beyond what's necessary
+3. Do not exploit the vulnerability for personal gain
+4. Do not disclose the issue to others until we've fixed it
+
+### Coordinated Disclosure
+
+We follow a 90-day disclosure timeline:
+
+1. **Day 0**: Vulnerability reported
+2. **Day 7**: Fix developed and tested
+3. **Day 14**: Fix deployed to production
+4. **Day 90**: Public disclosure (if not fixed, we may disclose earlier)
+
+We may request an extension if the fix is complex or requires coordination with other parties.
+
+## Security Audits
+
+### Completed Audits
+
+- None yet - Project is in active development
+
+### Planned Audits
+
+- **Claude Code Security** - AI-powered vulnerability discovery
+- **Manual Code Review** - Human security researchers
+- **Penetration Testing** - Simulated attacks on production systems
+
+### Audit Reports
+
+When available, audit reports will be published at:
+- https://github.com/agentic-reserve/ORDO/tree/main/audits
+
+## Security Updates
+
+### Notification Channels
+
+Security updates are announced via:
+- **GitHub Security Advisories** - https://github.com/agentic-reserve/ORDO/security/advisories
+- **Discord** - Security channel (link in README)
+- **Twitter** - @OrdoPlatform
+- **Email** - security@ordo.com mailing list
+
+### Update Policy
+
+- **Critical**: Immediate deployment, users notified
+- **High**: Deployed within 7 days, users notified
+- **Medium/Low**: Included in next regular release
 
 ## Contact
 
-- Security Email: security@ordo.com
-- General Contact: contributors@ordo.com
-- Discord: [Join our server](https://discord.gg/ordo)
+For security-related questions or concerns:
 
-## Acknowledgments
+- **Email**: security@ordo.com
+- **PGP Key**: Available on request
+- **Response Time**: Within 48 hours
 
-We appreciate responsible disclosure and will acknowledge security researchers who help improve our security.
+For general questions, use:
+- **GitHub Discussions**: https://github.com/agentic-reserve/ORDO/discussions
+- **Discord**: (link in README)
 
----
+## Acknowledgements
 
-Last Updated: 2025-01-21
+We thank the following security researchers for responsibly disclosing vulnerabilities:
+
+- *Your name could be here!*
+
+## Legal
+
+This security policy is subject to change without notice. By reporting a vulnerability, you agree to these terms.
+
+Last updated: February 2026
